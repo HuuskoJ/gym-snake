@@ -2,7 +2,7 @@
 import pygame
 import numpy as np
 import time
-from snake import Snake, Candy
+from .snake import Snake, Candy
 # Gym related dependencies
 import gym
 from gym import error, spaces, utils
