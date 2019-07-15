@@ -50,13 +50,12 @@ class SnakeEnv(gym.Env):
 
         reward = self.snake.move(self.candy) # returns 1 if candy is eaten, else 0
         if not reward: reward = 0.001
-        if self.snake.alive:
-            self.gamestate *= 0
-            for block in self.snake.blocks:
-                loc = (int(block.y), int(block.x))
-                self.gamestate[loc] = 0.5 # 'Color' for snake
-            candy_loc = (int(self.candy.y), int(self.candy.x))
-            self.gamestate[candy_loc] = 0.75 # 'Color' for candy
+        self.gamestate *= 0
+        for block in self.snake.blocks:
+            loc = (int(block.y), int(block.x))
+            self.gamestate[loc] = 0.5 # 'Color' for snake
+        candy_loc = (int(self.candy.y), int(self.candy.x))
+        self.gamestate[candy_loc] = 0.75 # 'Color' for candy
             
         if self.snake.alive:
             reward *= 1000
