@@ -17,7 +17,7 @@ class SnakeEnv(gym.Env):
         self.w_pixels = 64
         self.h_pixels = 64
 
-        self.observation_space = spaces.Box(low=0, high=1, shape=(4, 64, 64), dtype=np.int32)
+        self.observation_space = spaces.Box(low=0, high=1, shape=(1, 64, 64), dtype=np.int32)
         self.action_space = spaces.Discrete(4)
 
         self.pixel_size = 10
