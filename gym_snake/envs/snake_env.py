@@ -30,7 +30,8 @@ class SnakeEnv(gym.Env):
     @property
     def state(self):
         try:
-            return np.asarray(self.gamestates[-4:])
+            #return np.asarray(self.gamestates[-4:])
+            return self.gamestate
         except:
             pass
 
@@ -60,7 +61,7 @@ class SnakeEnv(gym.Env):
             self.gamestate[loc] = 0.5
         candy_loc = (int(self.candy.y), int(self.candy.x))
         self.gamestate[candy_loc] = 1
-        self.gamestates.append(self.gamestate.copy())
+        #self.gamestates.append(self.gamestate.copy())
 
         if self.snake.alive:
             reward *= 1000
@@ -89,7 +90,7 @@ class SnakeEnv(gym.Env):
             self.gamestate[loc] = 0.5
         candy_loc = (int(self.candy.y), int(self.candy.x))
         self.gamestate[candy_loc] = 1
-        self.gamestates.append(self.gamestate.copy())
+        #self.gamestates.append(self.gamestate.copy())
         # Move snake 3 times to right to create enough gamestates
         self.step(3)
         self.step(3)
