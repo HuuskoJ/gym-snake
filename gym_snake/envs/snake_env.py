@@ -63,7 +63,7 @@ class SnakeEnv(gym.Env):
         self.gamestates.append(self.gamestate.copy())
 
         if self.snake.alive:
-            reward *= 100
+            reward *= 1000
         else:
             reward = -100
 
