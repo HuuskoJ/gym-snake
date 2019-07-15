@@ -11,13 +11,13 @@ from gym.utils import seeding
 class SnakeEnv(gym.Env):
     metadata = {'render.modes': ['human']}
 
-    def __init__(self):
+    def __init__(self, W, H):
         
          # Screen settings
-        self.w_pixels = 64
-        self.h_pixels = 64
+        self.w_pixels = W
+        self.h_pixels = H
 
-        self.observation_space = spaces.Box(low=0, high=1, shape=(1, 64, 64), dtype=np.int32)
+        self.observation_space = spaces.Box(low=0, high=1, shape=(1, W, H), dtype=np.int32)
         self.action_space = spaces.Discrete(4)
 
         self.pixel_size = 10
@@ -90,10 +90,9 @@ class SnakeEnv(gym.Env):
     def render(self, mode='human', close=False):
         if not self._render:
             # One snake pixel equale pixel_size on screen
-            pixel_size = 10
 
-            WIDTH = self.w_pixels * pixel_size
-            HEIGHT = self.h_pixels * pixel_size
+            WIDTH = self.w_pixels * self.pixel_size
+            HEIGHT = self.h_pixels * self.pixel_size
 
             # Initialize pygame and screen surface
             pygame.init()
@@ -121,6 +120,11 @@ class SnakeEnv(gym.Env):
         else:
             # QUIT pygame
             pygame.quit()
+
+
+class SnakeEnv32(SnakeEnv):
+    def __init__(self):
+        super().__init__(W=32, H=32)
 
 
 if __name__ == '__main__':
