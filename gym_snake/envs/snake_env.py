@@ -22,6 +22,8 @@ class SnakeEnv(gym.Env):
 
         self.pixel_size = 10
         self.snake = None
+        self.candies = None
+        self.num_candies = 1
         self.candy = None
         self.gamestate = np.zeros((self.w_pixels, self.h_pixels))
         self._render = False
@@ -48,14 +50,15 @@ class SnakeEnv(gym.Env):
             if not self.snake.vx:
                 self.snake.change_direction('RIGHT')
 
-        reward = self.snake.move(self.candy) # returns 1 if candy is eaten, else 0
-        if not reward: reward = -1e5
+        reward = self.snake.move(self.candies) # returns 1 if candy is eaten, else 0
+        if not reward: reward = -1e-5
         self.gamestate *= 0
         for block in self.snake.blocks:
             loc = (int(block.y), int(block.x))
             self.gamestate[loc] = 0.5 # 'Color' for snake
-        candy_loc = (int(self.candy.y), int(self.candy.x))
-        self.gamestate[candy_loc] = 0.75 # 'Color' for candy
+        for candy in self.candies:
+            candy_loc = (int(candy.y), int(candy.x))
+            self.gamestate[candy_loc] = 1
             
         if self.snake.alive:
             reward *= 1000
@@ -73,17 +76,21 @@ class SnakeEnv(gym.Env):
                             length=6,
                             width=self.w_pixels,
                             height=self.h_pixels)
+        self.candies = []
         # Create candy
-        self.candy = Candy(self.pixel_size,
-                            np.random.randint(self.w_pixels-1),
-                            np.random.randint(self.h_pixels-1))
+        for i in range(self.num_candies):
+            candy = Candy(self.pixel_size,
+                                np.random.randint(self.w_pixels-1),
+                                np.random.randint(self.h_pixels-1))
+            self.candies.append(candy)
         self.gamestates = []
         self.gamestate *= 0
         for block in self.snake.blocks:
             loc = (int(block.y), int(block.x))
             self.gamestate[loc] = 0.5
-        candy_loc = (int(self.candy.y), int(self.candy.x))
-        self.gamestate[candy_loc] = 1
+        for candy in self.candies:
+            candy_loc = (int(candy.y), int(candy.x))
+            self.gamestate[candy_loc] = 1
         
         return self.state
 
@@ -114,7 +121,8 @@ class SnakeEnv(gym.Env):
             # Show snake
             self.snake.show()
             # Show candy
-            self.candy.show()
+            for candy in self.candies:
+                candy.show()
             # Update screen
             pygame.display.flip()
         else:
@@ -127,9 +135,22 @@ class SnakeEnv32(SnakeEnv):
         super().__init__(W=32, H=32)
 
 
+
+
+
+class SnakeEnvMC(SnakeEnv):
+
+    def __init__(self):
+        super().__init__(64, 64)
+
+        self.num_candies = 10
+
+
+
+
 if __name__ == '__main__':
 
-    env = SnakeEnv()
+    env = SnakeEnvMC()
     env.reset()
     for i in range(100):
         env.render()

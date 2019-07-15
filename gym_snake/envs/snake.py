@@ -83,7 +83,7 @@ class Snake:
             self.vx = 1
             self.vy = 0
 
-    def move(self, candy):
+    def move(self, candies):
 
         reward = 0
         if not self.width:
@@ -109,19 +109,20 @@ class Snake:
 
 
         # If snake cathes the candy
-        if self.x == candy.x and \
-            self.y == candy.y:
-            reward = 1
-            # Add new block to snake
-            self.add_block()
-            # Move candy to a new random location
-            candy.x = np.random.randint(0, self.width)
-            candy.y = np.random.randint(0, self.height)
-            # Make sure that the candy is not moved on top of the snake
-            while candy.x in [block.x for block in self.blocks] and \
-                candy.y in [block.y for block in self.blocks]:
+        for candy in candies:
+            if self.x == candy.x and \
+                self.y == candy.y:
+                reward = 1
+                # Add new block to snake
+                self.add_block()
+                # Move candy to a new random location
                 candy.x = np.random.randint(0, self.width)
                 candy.y = np.random.randint(0, self.height)
+                # Make sure that the candy is not moved on top of the snake
+                while candy.x in [block.x for block in self.blocks] and \
+                    candy.y in [block.y for block in self.blocks]:
+                    candy.x = np.random.randint(0, self.width)
+                    candy.y = np.random.randint(0, self.height)
 
 
         return reward
