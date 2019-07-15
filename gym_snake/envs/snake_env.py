@@ -53,7 +53,7 @@ class SnakeEnv(gym.Env):
                 self.snake.change_direction('RIGHT')
 
         reward = self.snake.move(self.candy) # returns 1 if candy is eaten, else 0
-        if not reward: reward = -0.01
+        #if not reward: reward = -0.01
         self.gamestate *= 0
         for block in self.snake.blocks:
             loc = (int(block.y), int(block.x))
