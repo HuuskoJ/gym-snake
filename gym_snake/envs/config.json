@@ -1,0 +1,45 @@
+{
+    "ac_kwargs":	{
+        "activation":	"relu",
+        "hidden_sizes":	[
+            128,
+            64,
+            32
+        ]
+    },
+    "actor_critic":	"mlp_actor_critic",
+    "clip_ratio":	0.2,
+    "env_fn":	"<function <lambda> at 0x0000020E9AD21EA0>",
+    "epochs":	20,
+    "exp_name":	"SnakeRLAgent",
+    "gamma":	0.99,
+    "lam":	0.97,
+    "logger":	{
+        "<spinup.utils.logx.EpochLogger object at 0x0000020E9B1D3BA8>":	{
+            "epoch_dict":	{},
+            "exp_name":	"SnakeRLAgent",
+            "first_row":	true,
+            "log_current_row":	{},
+            "log_headers":	[],
+            "output_dir":	"C:\\Users\\huusk\\OneDrive\\Tiedostot\\GitHub\\gym-snake\\gym_snake\\envs",
+            "output_file":	{
+                "<_io.TextIOWrapper name='C:\\\\Users\\\\huusk\\\\OneDrive\\\\Tiedostot\\\\GitHub\\\\gym-snake\\\\gym_snake\\\\envs\\\\progress.txt' mode='w' encoding='cp1252'>":	{
+                    "mode":	"w"
+                }
+            }
+        }
+    },
+    "logger_kwargs":	{
+        "exp_name":	"SnakeRLAgent",
+        "output_dir":	"C:\\Users\\huusk\\OneDrive\\Tiedostot\\GitHub\\gym-snake\\gym_snake\\envs"
+    },
+    "max_ep_len":	1000,
+    "pi_lr":	0.0003,
+    "save_freq":	10,
+    "seed":	0,
+    "steps_per_epoch":	500,
+    "target_kl":	0.01,
+    "train_pi_iters":	80,
+    "train_v_iters":	80,
+    "vf_lr":	0.001
+}
