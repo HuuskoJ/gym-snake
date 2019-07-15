@@ -60,7 +60,7 @@ class SnakeEnv(gym.Env):
             self.gamestate[loc] = 0.5
         candy_loc = (int(self.candy.y), int(self.candy.x))
         self.gamestate[candy_loc] = 1
-        self.gamestates.append(self.gamestate)
+        self.gamestates.append(self.gamestate.copy())
 
         if self.snake.alive:
             reward *= 100
@@ -89,7 +89,7 @@ class SnakeEnv(gym.Env):
             self.gamestate[loc] = 0.5
         candy_loc = (int(self.candy.y), int(self.candy.x))
         self.gamestate[candy_loc] = 1
-        self.gamestates.append(self.gamestate)
+        self.gamestates.append(self.gamestate.copy())
         # Move snake 3 times to right to create enough gamestates
         self.step(3)
         self.step(3)
